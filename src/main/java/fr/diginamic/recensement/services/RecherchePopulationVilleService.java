@@ -30,7 +30,7 @@ public class RecherchePopulationVilleService extends MenuService {
 			}
 		}
 		if (!trouve) {
-			throw new ServiceException("Nom de ville non trouvé.");
+			throw new ServiceException("Nom de ville non trouvée.");
 		}
 	}
 

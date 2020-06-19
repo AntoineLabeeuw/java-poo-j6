@@ -3,18 +3,21 @@ package fr.diginamic.recensement.services;
 import java.util.List;
 import java.util.Scanner;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.entites.Ville;
 import fr.diginamic.recensement.exceptions.ServiceException;
 
 /**
- * Recherche et affichage de toutes les villes d'un département dont la population est comprise
- * entre une valeur min et une valeur max renseignées par l'utilisateur.
+ * Recherche et affichage de toutes les villes d'un département dont la
+ * population est comprise entre une valeur min et une valeur max renseignées
+ * par l'utilisateur.
  * 
  * @author DIGINAMIC
  *
  */
-public class RecherchePopulationBorneService extends MenuService  {
+public class RecherchePopulationBorneService extends MenuService {
 
 	@Override
 	public void traiter(Recensement rec, Scanner scanner) throws ServiceException {
@@ -27,25 +30,25 @@ public class RecherchePopulationBorneService extends MenuService  {
 
 		System.out.println("Choississez une population maximum (en milliers d'habitants): ");
 		String saisieMax = scanner.nextLine();
-		
+
 		// gerer les exceptions
-		if ( !saisieMin.matches("^\\d+$")) {
+		if (!NumberUtils.isDigits(saisieMin)) {
 			throw new ServiceException("Le minimum doit être un nombre");
 		}
-		if ( !saisieMax.matches("^\\d+$")) {
+		if (!NumberUtils.isDigits(saisieMax)) {
 			throw new ServiceException("Le maximum doit être un nombre");
 		}
 
 		int min = Integer.parseInt(saisieMin) * 1000;
 		int max = Integer.parseInt(saisieMax) * 1000;
-		
-		if(min < 0) {
+
+		if (min < 0) {
 			throw new ServiceException("le minimum ne peut pas être inférieur à 0");
 		}
-		if(max < 0) {
+		if (max < 0) {
 			throw new ServiceException("le maximum ne peut pas être inférieur à 0");
 		}
-		if(max < min) {
+		if (max < min) {
 			throw new ServiceException("le maximum ne peut pas être inférieur au minimum");
 		}
 		boolean trouve = false;
