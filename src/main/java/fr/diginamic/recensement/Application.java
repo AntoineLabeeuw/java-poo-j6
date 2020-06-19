@@ -3,6 +3,7 @@ package fr.diginamic.recensement;
 import java.util.Scanner;
 
 import fr.diginamic.recensement.entites.Recensement;
+import fr.diginamic.recensement.exceptions.ServiceException;
 import fr.diginamic.recensement.services.RecherchePopulationBorneService;
 import fr.diginamic.recensement.services.RecherchePopulationDepartementService;
 import fr.diginamic.recensement.services.RecherchePopulationRegionService;
@@ -48,20 +49,43 @@ public class Application {
 			// On exécute l'option correspondant au choix de l'utilisateur
 			switch (choix) {
 			case 1:
-				RecherchePopulationVilleService rechercheVille = new RecherchePopulationVilleService();
-				rechercheVille.traiter(recensement, scanner);
+				try {
+					RecherchePopulationVilleService rechercheVille = new RecherchePopulationVilleService();
+					rechercheVille.traiter(recensement, scanner);
+				}
+				catch (ServiceException e) {
+					System.err.println(e.getMessage());
+				}
 				break;
 			case 2:
-				RecherchePopulationDepartementService rechercheDept = new RecherchePopulationDepartementService();
-				rechercheDept.traiter(recensement, scanner);
+				try {
+					RecherchePopulationDepartementService rechercheDept = new RecherchePopulationDepartementService();
+					rechercheDept.traiter(recensement, scanner);
+				}
+				catch (ServiceException e) {
+					System.err.println(e.getMessage());
+				}
+				
 				break;
 			case 3:
-				RecherchePopulationRegionService rechercheRegion = new RecherchePopulationRegionService();
-				rechercheRegion.traiter(recensement, scanner);
+				try {
+					RecherchePopulationRegionService rechercheRegion = new RecherchePopulationRegionService();
+					rechercheRegion.traiter(recensement, scanner);
+				}
+				catch (ServiceException e) {
+					System.err.println(e.getMessage());
+				}
+				
 				break;
 			case 4:
-				RecherchePopulationBorneService recherchePopBorne = new RecherchePopulationBorneService();
-				recherchePopBorne.traiter(recensement, scanner);
+				try {
+					RecherchePopulationBorneService recherchePopBorne = new RecherchePopulationBorneService();
+					recherchePopBorne.traiter(recensement, scanner);
+				}
+				catch (ServiceException e) {
+					System.err.println(e.getMessage());
+				}
+				
 				break;
 			}
 		} while (choix != 99);

@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import fr.diginamic.recensement.entites.Recensement;
 import fr.diginamic.recensement.entites.Ville;
+import fr.diginamic.recensement.exceptions.ServiceException;
 
 /** Recherche et affichage de la population d'une région
  * @author DIGINAMIC
@@ -13,13 +14,14 @@ import fr.diginamic.recensement.entites.Ville;
 public class RecherchePopulationRegionService extends MenuService {
 
 	@Override
-	public void traiter(Recensement rec, Scanner scanner) {
+	public void traiter(Recensement rec, Scanner scanner) throws ServiceException{
 		
 		System.out.println("Quel est le code de la région recherchée ? ");
 		String choix = scanner.nextLine();
 		
 		List<Ville> villes = rec.getVilles();
 		int somme = 0;
+		boolean trouve = false;
 		String nom = null;
 		for (Ville ville: villes){
 			if (ville.getCodeRegion().equalsIgnoreCase(choix)){
@@ -30,8 +32,8 @@ public class RecherchePopulationRegionService extends MenuService {
 		if (somme>0){
 			System.out.println("Population de la région "+nom+" : "+ somme);
 		}
-		else {
-			System.out.println("Région "+choix+" non trouvée.");
+		if (!trouve) {
+			throw new ServiceException("Code de région non trouvé");
 		}
 	}
 
